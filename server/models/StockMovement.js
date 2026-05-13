@@ -1,11 +1,25 @@
 import mongoose, { Schema } from "mongoose";
 
-const stockMovementSchema = new mongoose.Schema({
-  productID: String,
-  type: String,
-  quantity: Number,
-  location: String,
-  createdAt: { type: Date, default: Date.now },
-});
+const stockMovementSchema = new mongoose.Schema(
+  {
+    productID: {
+      type: mongoose.Svhema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+
+    type: {
+      type: String,
+      enum: ["IN", "OUT"],
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    note: String,
+  },
+  { timestamps: true },
+);
 
 export default mongoose.model("StockMovement", stockMovementSchema);
