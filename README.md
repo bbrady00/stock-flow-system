@@ -1,12 +1,18 @@
 # AP21 Offsite Stock Management System
 
-Full-stack inventory and offsite stock management system inspired by real retail workflows and inventory processes.
+Full-stack retail inventory and stock visibility platform inspired by enterprise retail workflows and inventory systems.
 
-Built to simulate enterprise inventory operations including stock tracking, movement history, multi-location management, analytics, and role-based access control.
+This project is designed to simulate real-world inventory operations including:
+
+- stock movement tracking
+- multi-location inventory visibility
+- offsite stock reservation
+- incoming shipment tracking
+- retail stock management workflows
 
 ---
 
-# 🚀 Current Features 🚀
+# 🚀 Current Features
 
 ## Product Management
 
@@ -15,38 +21,60 @@ Built to simulate enterprise inventory operations including stock tracking, move
 - Delete products
 - SKU-based inventory structure
 
-## Inventory Movement System
+---
 
-- Track stock movements
-- IN / OUT stock adjustments
-- Movement history logging
+## Stock Movement System
+
+- IN / OUT inventory adjustments
+- Inventory movement history
 - Dynamic stock updates
-
-## Full Stack Architecture
-
-- React frontend (Vite)
-- Express + Node.js backend
-- MongoDB database
-- REST API structure
+- Event-driven stock tracking structure
 
 ---
 
-# Project Goal
+## Multi-Location Inventory System
 
-This project aims to replicate the logic and workflows commonly found in enterprise retail inventory systems.
+- Create multiple inventory locations
+- Warehouse and offsite inventory support
+- Flexible location architecture
+
+### Supported Location Types
+
+- STORE
+- WAREHOUSE
+- OFFSITE
+
+---
+
+## Inventory Visibility Tracking
+
+Each location can track:
+
+- In-store stock
+- Offsite reserved inventory
+- Incoming stock
+
+Example:
+
+| Product     | In Store | Offsite Reserved | Incoming |
+| ----------- | -------- | ---------------- | -------- |
+| Nike Hoodie | 3        | 5                | 2        |
+
+---
+
+# 🧠 Project Goal
+
+The goal of this project is to replicate the logic and workflows used in enterprise retail inventory systems.
 
 Instead of treating stock as a static number, inventory is managed through:
 
 - stock movement events
-- inventory history
-- transfer logic
-- audit-style tracking
+- inventory visibility per location
+- offsite stock reservation
+- incoming inventory tracking
+- inventory history and auditing concepts
 
 ---
-
-## Status
-
-In active development
 
 # 🛠️ Tech Stack
 
@@ -67,6 +95,8 @@ In active development
 ---
 
 # 📂 Project Structure
+
+## Frontend
 
 ```bash
 client/
