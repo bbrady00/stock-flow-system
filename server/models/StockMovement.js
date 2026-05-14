@@ -17,6 +17,17 @@ const stockMovementSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+
+    fromLocation: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+    },
+
+    toLocation: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+    },
+
     note: String,
   },
   { timestamps: true },

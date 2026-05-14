@@ -4,12 +4,14 @@ import Product from "../models/Product.js";
 // ADD
 export const addMovement = async (req, res) => {
   try {
-    const { productId, type, quantity } = req.body;
+    const { productId, type, quantity, fromLocation, toLocation } = req.body;
 
     const movement = await StockMovement.create({
       productId,
       type,
       quantity,
+      fromLocation,
+      toLocation,
     });
 
     // UPDATE (temp)
