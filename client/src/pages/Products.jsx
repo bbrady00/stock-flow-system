@@ -31,13 +31,30 @@ export default function Products() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("/products", form);
-    setForm({ sku: "", name: "", category: "", totalStock: 0 });
+
+    await axios.post("/products", form, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
+    setForm({
+      sku: "",
+      name: "",
+      category: "",
+      totalStock: 0,
+    });
+
     fetchProducts();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/products/${id}`);
+    await axios.delete(`/products/${id}`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
     fetchProducts();
   };
 

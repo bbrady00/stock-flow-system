@@ -39,9 +39,15 @@ export default function Stock() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("/stock", form);
-    fetchMovements();
-    fetchProducts();
+
+    await axios.post("/stock", form, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
+    await fetchMovements();
+    await fetchProducts();
   };
 
   return (

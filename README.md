@@ -2,17 +2,41 @@
 
 Full-stack retail inventory and stock visibility platform inspired by enterprise retail workflows and inventory systems.
 
-This project is designed to simulate real-world inventory operations including:
+This project is designed to simulate real-world retail inventory operations including:
 
 - stock movement tracking
 - multi-location inventory visibility
 - offsite stock reservation
-- incoming shipment tracking
-- retail stock management workflows
+- incoming stock tracking
+- user authentication
+- role-based permissions
+- protected inventory operations
 
 ---
 
 # 🚀 Current Features
+
+## Authentication System
+
+- User registration
+- User login
+- JWT authentication
+- Password hashing with bcrypt
+- Persistent login token storage
+
+---
+
+## Role-Based Access Control
+
+Supported user roles:
+
+- ADMIN
+- MANAGER
+- STAFF
+
+Protected backend routes now require valid authentication tokens before inventory actions can be performed.
+
+---
 
 ## Product Management
 
@@ -28,15 +52,16 @@ This project is designed to simulate real-world inventory operations including:
 - IN / OUT inventory adjustments
 - Inventory movement history
 - Dynamic stock updates
-- Event-driven stock tracking structure
+- Event-driven inventory structure
 
 ---
 
-## Multi-Location Inventory System
+## Multi-Location Inventory Architecture
 
-- Create multiple inventory locations
+- Multiple inventory locations
+- Store-specific inventory visibility
 - Warehouse and offsite inventory support
-- Flexible location architecture
+- Flexible location system
 
 ### Supported Location Types
 
@@ -64,15 +89,16 @@ Example:
 
 # 🧠 Project Goal
 
-The goal of this project is to replicate the logic and workflows used in enterprise retail inventory systems.
+The goal of this project is to replicate the workflows and architecture commonly found in enterprise retail inventory systems.
 
-Instead of treating stock as a static number, inventory is managed through:
+Instead of treating stock as a static value, inventory is managed through:
 
 - stock movement events
-- inventory visibility per location
-- offsite stock reservation
-- incoming inventory tracking
-- inventory history and auditing concepts
+- inventory visibility by location
+- protected inventory operations
+- role-based user permissions
+- incoming shipment tracking
+- inventory auditing concepts
 
 ---
 
@@ -91,12 +117,12 @@ Instead of treating stock as a static number, inventory is managed through:
 - Express.js
 - MongoDB
 - Mongoose
+- JWT Authentication
+- bcryptjs
 
 ---
 
 # 📂 Project Structure
-
-## Frontend
 
 ```bash
 client/
