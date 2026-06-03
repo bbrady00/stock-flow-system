@@ -1,0 +1,33 @@
+.page-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.section-container {
+  background: #242424;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.card-item {
+  background: #242424;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}

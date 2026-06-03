@@ -1,0 +1,16 @@
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.location-card {
+  background: #242424;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.location-type {
+  color: #f8da3c;
+  font-weight: bold;
+}

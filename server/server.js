@@ -6,6 +6,7 @@ import productRoutes from "./routes/productRoutes.js";
 import stockRoutes from "./routes/stockRoutes.js";
 import locationRoutes from "./routes/locationRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/stock", stockRoutes);
 app.use("/api/locations", locationRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
   res.send("AP21 Stock System API Running");

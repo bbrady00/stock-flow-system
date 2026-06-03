@@ -1,0 +1,27 @@
+.stock-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.movement-card {
+  background: #242424;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.movement-card p {
+  margin: 0;
+}
+
+.movement-type {
+  font-weight: bold;
+}
+
+.stock-in {
+  color: #4caf50;
+}
+
+.stock-out {
+  color: #ff4d4d;
+}

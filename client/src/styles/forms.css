@@ -1,0 +1,18 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-input {
+  background: #2e2e2e;
+  border: 1px solid #444;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #f8da3c;
+}

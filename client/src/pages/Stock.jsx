@@ -7,7 +7,7 @@ export default function Stock() {
   const [form, setForm] = useState({
     productId: "",
     type: "IN",
-    quantity: 0,
+    quantity: "",
   });
 
   const fetchProducts = async () => {
@@ -40,25 +40,45 @@ export default function Stock() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("/stock", form, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
+    if (!form.productId) return;
+    if (Number(form.quantity) <= 0) return;
+
+    await axios.post(
+      "/stock",
+      {
+        ...form,
+        quantity: Number(form.quantity),
       },
-    });
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      },
+    );
 
     await fetchMovements();
     await fetchProducts();
+
+    setForm({
+      productId: "",
+      type: "IN",
+      quantity: "",
+    });
   };
 
   return (
-    <div>
+    <div className="page-container">
       <h1>Stock Movement</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <select
+          className="form-input"
+          value={form.productId}
           onChange={(e) => setForm({ ...form, productId: e.target.value })}
         >
-          <option>Select Product</option>
+          <option value="" disabled>
+            Select Product
+          </option>
           {products.map((p) => (
             <option key={p._id} value={p._id}>
               {p.name}
@@ -66,33 +86,51 @@ export default function Stock() {
           ))}
         </select>
 
-        <select onChange={(e) => setForm({ ...form, type: e.target.value })}>
+        <select
+          className="form-input"
+          value={form.type}
+          onChange={(e) => setForm({ ...form, type: e.target.value })}
+        >
           <option value="IN">IN</option>
           <option value="OUT">OUT</option>
         </select>
 
         <input
+          className="form-input"
           type="number"
+          value={form.quantity}
           placeholder="Quantity"
           onChange={(e) =>
             setForm({ ...form, quantity: Number(e.target.value) })
           }
         />
 
-        <button type="submit">Add Movement</button>
+        <button className="primary-btn" type="submit">
+          Add Movement
+        </button>
       </form>
 
-      <hr />
+      <div className="section-container">
+        <h2>Movement History</h2>
 
-      <h2>Movement History</h2>
-
-      {movements.map((m) => (
-        <div key={m._id}>
-          <p>
-            {m.productId?.name} — {m.type} — {m.quantity}
-          </p>
+        <div className="stock-list">
+          {movements.length === 0 ? (
+            <p className="empty-state">No stock movements recorded yet</p>
+          ) : (
+            movements.map((m) => (
+              <div className="card-item" key={m._id}>
+                <p>
+                  {m.productId?.name} —{" "}
+                  <span className={m.type === "IN" ? "stock-in" : "stock-out"}>
+                    {m.type}
+                  </span>{" "}
+                  — {m.quantity}
+                </p>
+              </div>
+            ))
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 }

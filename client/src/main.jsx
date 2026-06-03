@@ -1,6 +1,9 @@
 // import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./assets/styles/base.css";
+import "./assets/styles/layout.css";
+import "./assets/styles/buttons.css";
+import "./assets/styles/forms.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 

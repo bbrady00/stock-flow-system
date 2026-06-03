@@ -9,8 +9,12 @@ export default function Locations() {
   });
 
   const fetchLocations = async () => {
-    const res = await axios.get("/locations");
-    setLocations(res.data);
+    try {
+      const res = await axios.get("/locations");
+      setLocations(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -24,8 +28,13 @@ export default function Locations() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("/locations", form);
+    if (!form.name.trim()) return;
 
+    await axios.post("/locations", form, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     setForm({
       name: "",
       type: "STORE",
@@ -35,17 +44,19 @@ export default function Locations() {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <h1>Locations</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <input
+          className="form-input"
           placeholder="Location Name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
 
         <select
+          className="form-input"
           value={form.type}
           onChange={(e) => setForm({ ...form, type: e.target.value })}
         >
@@ -54,18 +65,26 @@ export default function Locations() {
           <option value="OFFSITE">OFFSITE</option>
         </select>
 
-        <button type="submit">Add Location</button>
+        <button className="primary-btn" type="submit">
+          Add Location
+        </button>
       </form>
 
-      <hr />
-
-      {locations.map((l) => (
-        <div key={l._id}>
-          <p>
-            {l.name} — {l.type}
-          </p>
+      <div className="section-container">
+        <h2>Locations</h2>
+        <div className="location-list">
+          {locations.length === 0 ? (
+            <p className="empty-state">No locations created yet</p>
+          ) : (
+            locations.map((l) => (
+              <div className="card-item" key={l._id}>
+                <h3>{l.name}</h3>
+                <p>Type: {l.type}</p>
+              </div>
+            ))
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.primary-btn {
+  background: #f8da3c;
+  color: black;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.danger-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #f8da3c;
+  color: #f8da3c;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}

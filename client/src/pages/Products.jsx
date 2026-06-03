@@ -7,7 +7,7 @@ export default function Products() {
     sku: "",
     name: "",
     category: "",
-    totalStock: 0,
+    totalStock: "",
   });
 
   const fetchProducts = async () => {
@@ -32,17 +32,29 @@ export default function Products() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("/products", form, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
+    if (!form.sku.trim()) return;
+    if (!form.name.trim()) return;
+    if (!form.category.trim()) return;
+    if (Number(form.totalStock) < 0) return;
+
+    await axios.post(
+      "/products",
+      {
+        ...form,
+        totalStock: Number(form.totalStock),
       },
-    });
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      },
+    );
 
     setForm({
       sku: "",
       name: "",
       category: "",
-      totalStock: 0,
+      totalStock: "",
     });
 
     fetchProducts();
@@ -59,48 +71,66 @@ export default function Products() {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <h1>Products</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <input
+          className="form-input"
           placeholder="SKU"
           value={form.sku}
           onChange={(e) => setForm({ ...form, sku: e.target.value })}
         />
 
         <input
+          className="form-input"
           placeholder="Name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
 
         <input
+          className="form-input"
           placeholder="Category"
           value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
         />
 
         <input
+          className="form-input"
           type="number"
           placeholder="Stock"
           value={form.totalStock}
           onChange={(e) => setForm({ ...form, totalStock: e.target.value })}
         />
 
-        <button type="submit">Add Product</button>
+        <button className="primary-btn" type="submit">
+          Add Product
+        </button>
       </form>
 
-      <hr />
+      <div className="product-list">
+        {products.length === 0 ? (
+          <p className="empty-state">No products found</p>
+        ) : (
+          products.map((p) => (
+            <div className="card-item" key={p._id}>
+              <h3>{p.name}</h3>
+              
+              <p>SKU: {p.sku}</p>
+              <p>Category: {p.category}</p>
+              <p>Stock: {p.totalStock}</p>
 
-      {products.map((p) => (
-        <div key={p._id}>
-          <p>
-            {p.name} ({p.sku})
-          </p>
-          <button onClick={() => handleDelete(p._id)}>Delete</button>
-        </div>
-      ))}
+              <button
+                className="danger-btn"
+                onClick={() => handleDelete(p._id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
