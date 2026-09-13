@@ -38,3 +38,14 @@
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+}

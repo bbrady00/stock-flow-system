@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
+import LogoutButton from "../../components/LogoutButton";
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
 
   const fetchDashboard = async () => {
-    const res = await axios.get("/dashboard", {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    const res = await axios.get("/dashboard");
 
     setStats(res.data);
   };
@@ -35,7 +32,10 @@ export default function Dashboard() {
 
   return (
     <div className="page-container">
-      <h1>Dashboard</h1>
+      <div className="dashboard-header">
+        <h1>Dashboard</h1>
+        <LogoutButton />
+      </div>
 
       <div className="dashboard-grid">
         <div className="dashboard-card">

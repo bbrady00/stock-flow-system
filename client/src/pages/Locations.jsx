@@ -30,11 +30,7 @@ export default function Locations() {
 
     if (!form.name.trim()) return;
 
-    await axios.post("/locations", form, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    await axios.post("/locations", form);
     setForm({
       name: "",
       type: "STORE",

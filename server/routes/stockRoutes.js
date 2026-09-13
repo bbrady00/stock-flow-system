@@ -5,6 +5,6 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post("/", protect, addMovement);
-router.get("/", getMovements);
+router.get("/", protect, getMovements);
 
 export default router;

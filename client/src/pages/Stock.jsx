@@ -43,18 +43,10 @@ export default function Stock() {
     if (!form.productId) return;
     if (Number(form.quantity) <= 0) return;
 
-    await axios.post(
-      "/stock",
-      {
-        ...form,
-        quantity: Number(form.quantity),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      },
-    );
+    await axios.post("/stock", {
+      ...form,
+      quantity: Number(form.quantity),
+    });
 
     await fetchMovements();
     await fetchProducts();

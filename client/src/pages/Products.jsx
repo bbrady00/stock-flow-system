@@ -37,18 +37,10 @@ export default function Products() {
     if (!form.category.trim()) return;
     if (Number(form.totalStock) < 0) return;
 
-    await axios.post(
-      "/products",
-      {
-        ...form,
-        totalStock: Number(form.totalStock),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      },
-    );
+    await axios.post("/products", {
+      ...form,
+      totalStock: Number(form.totalStock),
+    });
 
     setForm({
       sku: "",
@@ -61,11 +53,7 @@ export default function Products() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/products/${id}`, {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    await axios.delete(`/products/${id}`);
 
     fetchProducts();
   };
@@ -116,7 +104,7 @@ export default function Products() {
           products.map((p) => (
             <div className="card-item" key={p._id}>
               <h3>{p.name}</h3>
-              
+
               <p>SKU: {p.sku}</p>
               <p>Category: {p.category}</p>
               <p>Stock: {p.totalStock}</p>
