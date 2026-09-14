@@ -2,8 +2,8 @@ import mongoose, { Schema } from "mongoose";
 
 const stockMovementSchema = new mongoose.Schema(
   {
-    productID: {
-      type: mongoose.Svhema.Types.ObjectId,
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       required: true,
     },
@@ -16,6 +16,7 @@ const stockMovementSchema = new mongoose.Schema(
     quantity: {
       type: Number,
       required: true,
+      min: 1,
     },
 
     fromLocation: {
