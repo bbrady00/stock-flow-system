@@ -3,17 +3,30 @@ import axios from "../api/axios";
 
 export default function Stock() {
   const [products, setProducts] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [movements, setMovements] = useState([]);
+
   const [form, setForm] = useState({
     productId: "",
     type: "IN",
     quantity: "",
+    fromLocation: "",
+    toLocation: "",
   });
 
   const fetchProducts = async () => {
     try {
       const res = await axios.get("/products");
       setProducts(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchLocations = async () => {
+    try {
+      const res = await axios.get("/locations");
+      setLocations(res.data);
     } catch (err) {
       console.error(err);
     }
@@ -31,6 +44,7 @@ export default function Stock() {
   useEffect(() => {
     const loadData = async () => {
       await fetchProducts();
+      await fetchLocations();
       await fetchMovements();
     };
 
@@ -42,6 +56,9 @@ export default function Stock() {
 
     if (!form.productId) return;
     if (Number(form.quantity) <= 0) return;
+
+    if (form.type === "IN" && !form.toLocation) return;
+    if (form.type === "OUT" && !form.fromLocation) return;
 
     await axios.post("/stock", {
       ...form,
@@ -55,6 +72,17 @@ export default function Stock() {
       productId: "",
       type: "IN",
       quantity: "",
+      fromLocation: "",
+      toLocation: "",
+    });
+  };
+
+  const handleTypeChange = (e) => {
+    setForm({
+      ...form,
+      type: e.target.value,
+      fromLocation: "",
+      toLocation: "",
     });
   };
 
@@ -66,11 +94,17 @@ export default function Stock() {
         <select
           className="form-input"
           value={form.productId}
-          onChange={(e) => setForm({ ...form, productId: e.target.value })}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              productId: e.target.value,
+            })
+          }
         >
           <option value="" disabled>
             Select Product
           </option>
+
           {products.map((p) => (
             <option key={p._id} value={p._id}>
               {p.name}
@@ -81,19 +115,51 @@ export default function Stock() {
         <select
           className="form-input"
           value={form.type}
-          onChange={(e) => setForm({ ...form, type: e.target.value })}
+          onChange={handleTypeChange}
         >
           <option value="IN">IN</option>
           <option value="OUT">OUT</option>
         </select>
 
+        <select
+          className="form-input"
+          value={form.type === "IN" ? form.toLocation : form.fromLocation}
+          onChange={(e) => {
+            if (form.type === "IN") {
+              setForm({
+                ...form,
+                toLocation: e.target.value,
+              });
+            } else {
+              setForm({
+                ...form,
+                fromLocation: e.target.value,
+              });
+            }
+          }}
+        >
+          <option value="" disabled>
+            {form.type === "IN" ? "Select Destination" : "Select Source"}
+          </option>
+
+          {locations.map((location) => (
+            <option key={location._id} value={location._id}>
+              {location.name}
+            </option>
+          ))}
+        </select>
+
         <input
           className="form-input"
           type="number"
+          min="1"
           value={form.quantity}
           placeholder="Quantity"
           onChange={(e) =>
-            setForm({ ...form, quantity: Number(e.target.value) })
+            setForm({
+              ...form,
+              quantity: e.target.value,
+            })
           }
         />
 
